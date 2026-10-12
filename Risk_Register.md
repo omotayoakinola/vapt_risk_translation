@@ -1,16 +1,16 @@
 # Risk Register & Technical-to-Business Translation Matrix
 
-## 📋 Risk Context: Acuart Gallery
+##  Risk Context: Acuart Gallery
 *This section establishes the operational baseline, regulatory scope, and analytical boundaries used to calculate risk exposure for the Acuart Gallery platform.*
 
-### 🏢 Corporate Profile & Financial Baseline
+###  Corporate Profile & Financial Baseline
 * **Organization Name:** Acuart Gallery
 * **Business Model:** Online art retail platform processing digital card payments.
 * **Jurisdictional Scope:** Serves both Nigerian (NDPA) and European Union (GDPR) customer bases.
 * **Financial Baseline:** Annual revenue of **\$5,000,000** (~\$13,700 daily operational volume).
 * **Asset Footprint:** 10,000 active customer records containing PII and payment data environments.
 
-### 📐 Risk Scoring Framework (NIST SP 800-30 Alignment)
+###  Risk Scoring Framework (NIST SP 800-30 Alignment)
 The enterprise utilizes a standard **5x5 Likelihood and Impact Matrix**. Risk scores are calculated as: 
 \[\text{Risk Score} = \text{Likelihood} \times \text{Impact}\]
 
@@ -24,7 +24,7 @@ The enterprise utilizes a standard **5x5 Likelihood and Impact Matrix**. Risk sc
 
 ---
 
-## 📊 Acuart Gallery Enterprise Risk Register
+##  Acuart Gallery Enterprise Risk Register
 
 | Risk ID | Technical Finding (VAPT / CWE) | Asset Criticality | Threat Scenario | Likelihood (1-5) | Impact (1-5) | Risk Score | Estimated Financial Exposure | Framework & Regulatory Mapping | GRC Recommendation & Treatment | Owner & SLA |
 | :--- | :--- | :--- | :--- | :---: | :---: | :---: | :--- | :--- | :--- | :--- |
@@ -36,7 +36,7 @@ The enterprise utilizes a standard **5x5 Likelihood and Impact Matrix**. Risk sc
 
 ---
 
-## 📈 Executive Aggregation & GRC Methodology Notes
+##  Executive Aggregation & GRC Methodology Notes
 
 ### Combined Financial Exposure Portfolio
 * **Total Simulated Enterprise Exposure:** **\$725,000 to \$2,410,000**
