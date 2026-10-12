@@ -1,4 +1,4 @@
-# Corporate Cyber Risk Translation and GRC Framework
+# Cyber Risk Translation
 
 ## Project Overview
 This project simulates the GRC workflow of receiving a technical VAPT (Vulnerability Assessment and Penetration Testing) report, analysing the findings, and translating them into business, financial and compliance risk for executive decision making.
