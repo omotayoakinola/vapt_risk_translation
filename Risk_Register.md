@@ -11,8 +11,7 @@
 * **Asset Footprint:** 10,000 active customer records containing PII and payment data environments.
 
 ###  Risk Scoring Framework (NIST SP 800-30 Alignment)
-The enterprise utilizes a standard **5x5 Likelihood and Impact Matrix**. Risk scores are calculated as: 
-\[\text{Risk Score} = \text{Likelihood} \times \text{Impact}\]
+The enterprise utilizes a standard **5x5 Likelihood and Impact Matrix**. 
 
 * **Score Classifications:**
   * 🔴 **20 to 25:** Critical Risk
