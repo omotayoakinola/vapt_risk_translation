@@ -8,7 +8,7 @@
 ---
 
 ###  Executive Summary
-Our online store currently carries a **High overall cyber risk**, driven by two Critical flaws that could compromise our entire consumer database and payment environments. If exploited, the five identified issues carry a combined financial exposure of **\$725,000 to \$2.41 million**, heavily threatening our annual revenue of approximately \$5 million. 
+Our online store currently carries a High overall cyber risk, driven by two Critical flaws that could compromise our entire consumer database and payment environments. If exploited, the five identified issues carry a combined financial exposure of \$725,000 to \$2.41 million, heavily threatening our annual revenue of approximately \$5 million. 
 
 Most of this exposure can be completely removed through targeted engineering remediation over the next 30 days, costing a small fraction of a single data breach.
 
