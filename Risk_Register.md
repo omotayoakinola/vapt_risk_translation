@@ -1,64 +1,51 @@
-# Risk Register and Translation Matrix
+# Risk Register & Technical-to-Business Translation Matrix
 
-## Assumptions (simulation only)
-* Business: Acuart Gallery, a fictional online art retailer taking card payments, serving Nigerian and EU customers
-* Annual revenue of $5 million, about $13,700 per day
-* 10,000 customer records, including card details
-* Likelihood and impact are each scored 1 to 5, and risk score is likelihood multiplied by impact (NIST SP 800 30 approach)
-* Score bands: 20 to 25 Critical, 12 to 19 High, 6 to 11 Medium, 1 to 5 Low
-* CVE numbers do not apply to custom application flaws, so CWE IDs and estimated CVSS v3.1 scores are used
+## 📋 Risk Context: Acuart Gallery
+*This section establishes the operational baseline, regulatory scope, and analytical boundaries used to calculate risk exposure for the Acuart Gallery platform.*
 
-## RISK_2026_001: SQL Injection on Artists Page
-* **Source finding:** WEB_VUL_01
-* **Technical finding:** SQL injection, CWE 89, estimated CVSS 9.8
-* **Asset criticality:** High (customer database)
-* **Threat scenario:** An unauthenticated attacker extracts the full users table, including card numbers, emails, phones and addresses
-* **Financial exposure:** $500,000 to $1,500,000 (fines and legal $150,000 to $400,000, forensics and recovery $100,000 to $300,000, customer notification about $200,000, lost business $50,000 to $600,000)
-* **Compliance mapping:** ISO 27001:2022 Annex A 8.28, 8.3 and 8.26; PCI DSS 6.2.4; GDPR Article 32; NDPA security of processing duty; NIST CSF 2.0 PR.DS
-* **Score:** Likelihood 5, Impact 5, 25, Critical
-* **GRC recommendation:** Mitigate. Use parameterised queries and input validation, and restrict database privileges. Owner: Head of Engineering. Due in 7 days, then retest
+### 🏢 Corporate Profile & Financial Baseline
+* **Organization Name:** Acuart Gallery
+* **Business Model:** Online art retail platform processing digital card payments.
+* **Jurisdictional Scope:** Serves both Nigerian (NDPA) and European Union (GDPR) customer bases.
+* **Financial Baseline:** Annual revenue of **\$5,000,000** (~\$13,700 daily operational volume).
+* **Asset Footprint:** 10,000 active customer records containing PII and payment data environments.
 
-## RISK_2026_002: Login Bypass via SQL Injection
-* **Source finding:** WEB_VUL_04
-* **Technical finding:** Authentication bypass through SQL injection, CWE 89, estimated CVSS 9.8
-* **Asset criticality:** High (customer accounts, possible admin access)
-* **Threat scenario:** An attacker logs in as any user without a password, views saved card data and places fraudulent orders
-* **Financial exposure:** $100,000 to $400,000 (fraud and chargebacks $30,000 to $150,000, support and recovery $20,000 to $80,000, lost customer trust $50,000 to $170,000)
-* **Compliance mapping:** ISO 27001:2022 Annex A 8.5; PCI DSS Requirement 8 and 6.2.4; GDPR Article 32; NIST CSF 2.0 PR.AA
-* **Score:** Likelihood 5, Impact 4, 20, Critical
-* **GRC recommendation:** Mitigate. Fix query handling, add multi factor authentication, account lockout and login monitoring. Owner: Engineering with IT Security. Due in 7 days
+### 📐 Risk Scoring Framework (NIST SP 800-30 Alignment)
+The enterprise utilizes a standard **5x5 Likelihood and Impact Matrix**. Risk scores are calculated as: 
+\[\text{Risk Score} = \text{Likelihood} \times \text{Impact}\]
 
-## RISK_2026_003: Stored XSS in Profile Page
-* **Source finding:** WEB_VUL_03
-* **Technical finding:** Stored cross site scripting, CWE 79, estimated CVSS 5.4
-* **Asset criticality:** High (the page holds customer card and contact data)
-* **Threat scenario:** Malicious script saved in a profile runs for every viewer, stealing sessions or redirecting shoppers to a fake payment page
-* **Financial exposure:** $75,000 to $300,000 (incident response $25,000 to $75,000, customer remediation $20,000 to $75,000, lost sales and brand damage $30,000 to $150,000)
-* **Compliance mapping:** ISO 27001:2022 Annex A 8.28 and 8.26; PCI DSS 6.2.4 and 6.4; GDPR Article 32; NIST CSF 2.0 PR.DS
-* **Score:** Likelihood 4, Impact 4, 16, High
-* **GRC recommendation:** Mitigate. Encode output, validate input and deploy a Content Security Policy. Owner: Engineering. Due in 14 days
+* **Score Classifications:**
+  * 🔴 **20 to 25:** Critical Risk
+  * 🟠 **12 to 19:** High Risk
+  * 🟡 **6 to 11:** Medium Risk
+  * 🟢 **1 to 5:** Low Risk
 
-## RISK_2026_004: Reflected XSS in Search and Guestbook
-* **Source finding:** WEB_VUL_02
-* **Technical finding:** Reflected cross site scripting, CWE 79, estimated CVSS 6.1
-* **Asset criticality:** High (public storefront)
-* **Threat scenario:** A crafted link that looks like it comes from the brand runs attacker script in a customer's browser, enabling phishing and session theft
-* **Financial exposure:** $40,000 to $150,000 (incident handling $15,000 to $50,000, fraud losses $15,000 to $60,000, brand damage $10,000 to $40,000)
-* **Compliance mapping:** ISO 27001:2022 Annex A 8.28 and 8.29; PCI DSS 6.2.4; NIST CSF 2.0 PR.PS
-* **Score:** Likelihood 4, Impact 3, 12, High
-* **GRC recommendation:** Mitigate. Apply the same code fixes as RISK_2026_003, then retest. Owner: Engineering. Due in 30 days
+* **Vulnerability Context Note:** Because the underlying technical assessment targeted custom application logic rather than commercial software, Common Weakness Enumeration (CWE) metrics and estimated CVSS v3.1 base scores are used in place of CVE identifiers.
 
-## RISK_2026_005: Iframe Injection and Clickjacking in Guestbook
-* **Source finding:** WEB_VUL_06
-* **Technical finding:** Improper UI layer restriction, CWE 1021, estimated CVSS 4.3
-* **Asset criticality:** Medium (guestbook page)
-* **Threat scenario:** A fake login box embedded on the trusted site captures customer passwords
-* **Financial exposure:** $10,000 to $60,000 (response costs $5,000 to $20,000, credential misuse $5,000 to $40,000)
-* **Compliance mapping:** ISO 27001:2022 Annex A 8.9 and 8.28; PCI DSS 6.4; NIST CSF 2.0 PR.PS
-* **Score:** Likelihood 3, Impact 3, 9, Medium
-* **GRC recommendation:** Mitigate. Add the X Frame Options header and CSP frame ancestors, and sanitise guestbook input. Owner: Engineering. Due in 30 days
+---
 
-## Summary
-* Combined exposure: $725,000 to $2.41 million. Findings 1 and 2 account for most of it, so they are fixed first.
-* Some ratings differ from the pentester's technical ratings. For example, reflected XSS was rated Medium in the report and High here because it affects the public storefront. GRC rates risk by business context, not only technical severity.
-* All dollar figures and CVSS scores are illustrative estimates for a simulated scenario.
+## 📊 Acuart Gallery Enterprise Risk Register
+
+| Risk ID | Technical Finding (VAPT / CWE) | Asset Criticality | Threat Scenario | Likelihood (1-5) | Impact (1-5) | Risk Score | Estimated Financial Exposure | Framework & Regulatory Mapping | GRC Recommendation & Treatment | Owner & SLA |
+| :--- | :--- | :--- | :--- | :---: | :---: | :---: | :--- | :--- | :--- | :--- |
+| **RISK_2026_001** | SQL Injection on Artists Page <br><br>`Source: WEB_VUL_01`<br>`CWE-89`<br>`Est. CVSS: 9.8` | **High**<br>(Customer Database) | Unauthenticated external attacker extracts the full database user table, compromising card numbers, emails, phone numbers, and physical addresses. | 5 | 5 | **25**<br>🔴 *Critical* | **\$500,000 - \$1,500,000**<br><br>• Fines/Legal: \$150k-\$400k<br>• Forensics/Recovery: \$100k-\$300k<br>• Notifications: ~\$200k<br>• Lost Business: \$50k-\$600k | • **ISO 27001:** A.8.3, A.8.26, A.8.28<br>• **PCI DSS:** 6.2.4<br>• **GDPR:** Article 32<br>• **NDPA:** Security of Processing<br>• **NIST CSF:** PR.DS | **Mitigate:** Implement parameterized queries, strict input validation, and restrict backend database user privileges. Schedule a validation retest. | Head of Engineering<br><br>⏱️ **7 Days** |
+| **RISK_2026_002** | Login Bypass via SQL Injection <br><br>`Source: WEB_VUL_04`<br>`CWE-89`<br>`Est. CVSS: 9.8` | **High**<br>(Customer Accounts / Admin Access) | Attacker bypasses authentication mechanisms to hijack arbitrary user profiles without credentials, viewing saved card profiles and initiating fraudulent transactions. | 5 | 4 | **20**<br>🔴 *Critical* | **\$100,000 - \$400,000**<br><br>• Fraud/Chargebacks: \$30k-\$150k<br>• Support/Ops Recovery: \$20k-\$80k<br>• Loss of Trust: \$50k-\$170k | • **ISO 27001:** A.8.5<br>• **PCI DSS:** Req 8, 6.2.4<br>• **GDPR:** Article 32<br>• **NIST CSF:** PR.AA | **Mitigate:** Remediate raw query logic, enforce system-wide Multi-Factor Authentication (MFA), configure account lockout policies, and deploy automated login monitoring alerts. | Engineering & IT Security<br><br>⏱️ **7 Days** |
+| **RISK_2026_003** | Stored XSS in Profile Page <br><br>`Source: WEB_VUL_03`<br>`CWE-79`<br>`Est. CVSS: 5.4` | **High**<br>(User Profiles holding PII/Card data) | Persistent malicious script injected into customer profiles executes within the browsers of viewing users, compromising sessions or force-redirecting shoppers to credential harvesting landing pages. | 4 | 4 | **16**<br>🟠 *High* | **\$75,000 - \$300,000**<br><br>• Incident Response: \$25k-\$75k<br>• User Remediation: \$20k-\$75k<br>• Sales/Brand Damage: \$30k-\$150k | • **ISO 27001:** A.8.26, A.8.28<br>• **PCI DSS:** 6.2.4, 6.4<br>• **GDPR:** Article 32<br>• **NIST CSF:** PR.DS | **Mitigate:** Enforce strict contextual output encoding, sanitize user inputs on arrival, and deploy an enterprise Content Security Policy (CSP). | Engineering Team<br><br>⏱️ **14 Days** |
+| **RISK_2026_004** | Reflected XSS in Search & Guestbook <br><br>`Source: WEB_VUL_02`<br>`CWE-79`<br>`Est. CVSS: 6.1` | **High**<br>(Public Storefront Front-end) | Crafted malicious links mimicking legitimate corporate domains target customers, executing arbitrary browser-side scripts to facilitate targeted phishing and session hijacking. | 4 | 3 | **12**<br>🟠 *High* | **\$40,000 - \$150,000**<br><br>• Incident Handling: \$15k-\$50k<br>• Fraud Losses: \$15k-\$60k<br>• Reputation Damage: \$10k-\$40k | • **ISO 27001:** A.8.28, A.8.29<br>• **PCI DSS:** 6.2.4<br>• **NIST CSF:** PR.PS | **Mitigate:** Apply standard cross-site scripting source code remediation (similar to RISK_2026_003) across public input forms and track verification retests. | Engineering Team<br><br>⏱️ **30 Days** |
+| **RISK_2026_005** | Iframe Injection / Clickjacking <br><br>`Source: WEB_VUL_06`<br>`CWE-1021`<br>`Est. CVSS: 4.3` | **Medium**<br>(Guestbook Endpoint) | Malicious UI-layer framing embeds hidden inputs or fraudulent forms within trusted pages to trick users into disclosing authorization credentials. | 3 | 3 | **9**<br>🟡 *Medium* | **\$10,000 - \$60,000**<br><br>• Response Operations: \$5k-\$20k<br>• Credential Misuse: \$5k-\$40k | • **ISO 27001:** A.8.9, A.8.28<br>• **PCI DSS:** 6.4<br>• **NIST CSF:** PR.PS | **Mitigate:** Deploy the `X-Frame-Options` browser security header alongside explicit CSP `frame-ancestors` directives. Sanitize the public guestbook fields. | Engineering Team<br><br>⏱️ **30 Days** |
+
+---
+
+## 📈 Executive Aggregation & GRC Methodology Notes
+
+### Combined Financial Exposure Portfolio
+* **Total Simulated Enterprise Exposure:** **\$725,000 to \$2,410,000**
+* **Strategic Sequencing Statement:** `RISK_2026_001` and `RISK_2026_002` account for over 75% of the organization's aggregate financial liability. Consequently, GRC has designated these for immediate, fast-tracked remediation sprints ahead of standard application maintenance cycles.
+
+### The Value of GRC Translation vs. Technical Testing Rating
+A key differentiator in this register is the intentional adjustment of risk profiles based on corporate context rather than pure automated scoring. 
+
+For instance, **Reflected XSS (RISK_2026_004)** was designated as a **Medium** vulnerability by the automated penetration testing tool due to its non-persistent nature. However, because this vulnerability actively impacts the **public-facing storefront**—directly threatening the integrity of the checkout path for a company generating \$5M in e-commerce business—the GRC team escalated the business risk classification to **High**. 
+
+This demonstrates how corporate context, revenue models, and legal liability (NDPA/GDPR) must override isolated software severity ratings to protect enterprise continuity.
+
