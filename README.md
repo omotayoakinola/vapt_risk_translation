@@ -13,7 +13,6 @@ All dollar figures are illustrative assumptions, not real data. CVSS scores are 
 ## Deliverables
 * Risk Register and Translation Matrix: five findings mapped to likelihood, impact, financial exposure, compliance controls and a treatment decision with owner and deadline.
 * Executive Risk Briefing: a one page board memo with a summary, top 3 business risks and a remediation roadmap.
-* Methodology and Assumptions: scoring method and the basis for every financial range.
 
 ## Method
 Risk score is likelihood (1 to 5) multiplied by impact (1 to 5), following the NIST SP 800 30 approach. Bands: 20 to 25 Critical, 12 to 19 High, 6 to 11 Medium, 1 to 5 Low. Ratings reflect business context, so some differ from the pentester's technical ratings.
