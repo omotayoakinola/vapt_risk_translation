@@ -1,5 +1,6 @@
 # Executive Risk Briefing
 
+
 **TO:** Board of Directors
 **FROM:** Omotayo Akinola, GRC Analyst
 **DATE:** October 12, 2026
