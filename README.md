@@ -37,3 +37,6 @@ Methodology_and_Assumptions
 ## Credit and Disclaimer
 Findings are based on a publicly available sample pentest report. The original report is not included here. This is a learning project and not a real client engagement.
 
+## Source and Assumptions
+
+The source is a sample web application VAPT report for the Acunetix test site (testphp.vulnweb.com), a deliberately vulnerable demo site. The company, revenue and financial figures are assumptions for this simulated exercise. I did not perform the penetration test. This project translates its findings into business risk for a board audience.
