@@ -54,6 +54,28 @@ Ranges are given instead of single numbers because real breach costs vary widely
 ## Compliance Mapping Approach
 Each finding is mapped to ISO/IEC 27001:2022 Annex A controls, NIST CSF v2.0 categories, PCI DSS v4.0 requirements and, where personal data is at risk, GDPR Article 32 and the Nigeria Data Protection Act (NDPA).
 
+## Findings Selection
+
+The source report contains six findings. Five were selected for translation into business risk, and one was left out.
+
+### Selected
+* **WEB_VUL_01 SQL injection (High in report):** Selected because it exposes the full customer database, including card data. It carries the largest regulatory and financial impact.
+* **WEB_VUL_04 Login bypass (High in report):** The report labels this broken authentication, but it is exploited through SQL injection. It is kept as a separate risk because the business impact is different: account takeover and fraud, not data extraction. It also leads to different controls, such as multi factor authentication and login monitoring.
+* **WEB_VUL_03 Stored XSS (High in report):** Selected because the malicious script persists and affects every visitor to the page, which makes it a customer trust and fraud risk.
+* **WEB_VUL_02 Reflected XSS (Medium in report):** Selected because it affects the public storefront and enables phishing in the company's name. It is rated High here because of the business context.
+* **WEB_VUL_06 Clickjacking and iframe injection (Low in report):** Selected because it shows a different type of control. The fix is configuration based (security headers) and not a code fix, and the harm is credential theft and reputation damage.
+
+### Not selected
+* **WEB_VUL_05 HTML injection (Low in report):** Left out because it shares the same root cause and the same fixes as the two XSS findings (input filtering and output encoding). Including it would repeat the same business risk.
+
+### Selection criteria
+* Business impact: financial, regulatory and customer harm
+* Exploitability: how easily an outsider can exploit the flaw
+* Variety: data exposure, authentication, client side attacks and configuration, so the register shows different risk themes and control types
+* Avoiding duplication: findings with the same root cause and same remediation are covered once
+
+The original report is a publicly available sample and is not included in this repository.
+
 ## Limitations
 * The business context is invented to make the findings meaningful.
 * Dollar figures are assumptions and not based on real incident data.
